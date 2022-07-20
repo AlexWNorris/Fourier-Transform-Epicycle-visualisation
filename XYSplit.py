@@ -1,9 +1,9 @@
 from cmath import pi, sqrt
-from dataclasses import replace
 from time import sleep
 from math import cos,sin
 from FSAT import dftt
 from re import findall
+from tkinter import filedialog as fd
 import pygame
 
 pygame.init()
@@ -94,8 +94,10 @@ class spinner():
                         listA=[]
     
             return output
-        
         spinnerObjects=mergeSort(spinnerObjects)
+
+
+
 def updateEnds():
     x=spinnerObjects[0][-1].fetchEnd()[0]
     y=spinnerObjects[1][-1].fetchEnd()[1]
@@ -109,15 +111,9 @@ def drawOutput():
         pygame.draw.lines(screen,drawingColor,False,points)
     pygame.draw.line(screen,connectorColor,xSpinners,drawing)
     pygame.draw.line(screen,connectorColor,ySpinners,drawing)
-def mathsFuntion():
-    options=[-100-100j,-100+100j,100+100j,100-100j]
-    output=[]
-    for i in range(8):
-        for n in range(1):
-            output.append(options[i%4])
-    return output
     
-def fetchCoords(path):
+def openCoordsFile():
+    path=fd.askopenfilename()
     output=[]
     with open(path,'r') as file:
         fileContent=file.read()
@@ -130,7 +126,7 @@ def fetchCoords(path):
         
     return output
 
-def start(signal):
+def fourierTransform(signal):
     global dt
     xSignal=[]
     ySignal=[]
@@ -140,7 +136,7 @@ def start(signal):
     xFourierValues=dftt(xSignal)
     yFourierValues=dftt(ySignal)
     dt=1/len(signal)
-    scaler=5
+    scaler=25
     for i in range(len(xFourierValues)):
         rad=xFourierValues[i]["amp"]/scaler
         freq=xFourierValues[i]["freq"]
@@ -151,15 +147,16 @@ def start(signal):
         rad=yFourierValues[i]["amp"]/scaler
         freq=yFourierValues[i]["freq"]
         offSet=yFourierValues[i]["phase"]
-        spinner(freq,offSet+(pi/2),rad,"y",Swidth*0.15,Shight*0.5)
-   
-path=r"C:\Users/alexw\OneDrive\Desktop\coding shinanigans\python/fourier transformation/textCoords\heart.txt"
+        
+        spinner(freq,offSet+(pi/2),rad,"y",Swidth*0.15,Shight*0.35)
+    print("spinners generated")
+
+
 #game loop
 t=0
 dt=0.001
-stop=True
 points=[]
-start(fetchCoords(path))
+fourierTransform(openCoordsFile())
 while True:
     screen.fill(black)
     for plane in (spinnerObjects):
@@ -172,15 +169,12 @@ while True:
         updateEnds()
         drawOutput()
     pygame.display.flip()
-    if t==0:
-        sleep(2)
+    if t==0:sleep(3)
     for event in pygame.event.get():
         if event.type==pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE: 
                 exit()
-    t+=dt
-    sleep(dt/2)
-    
+    t+=dt  
     
     
 
