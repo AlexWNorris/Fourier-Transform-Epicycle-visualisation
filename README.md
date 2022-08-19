@@ -1,5 +1,5 @@
-# Fourier-Transformation-Epicycle-visualisation
-This program uses the discrete Fourier transform to derive a series of epicycles to draw a set of parsed coordinates 
+# Fourier-Series-Epicycle-visualisation
+This program uses the discrete Fourier Series to derive a collection of epicycles to draw a set of parsed coordinates 
 which can therefore be used to draw any continues image
 
 see a video of the program in action here: https://youtu.be/5MW60XcRaEg
