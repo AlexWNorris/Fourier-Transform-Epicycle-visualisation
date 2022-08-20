@@ -1,5 +1,5 @@
-# Fourier-Series-Epicycle-visualisation
-This program uses the discrete Fourier Series to derive a collection of epicycles to draw a set of parsed coordinates 
+# Fourier-Transform-Epicycle-visualisation
+This program uses the discrete Fourier Transform to derive a collection of epicycles to draw a set of parsed coordinates 
 which can therefore be used to draw any continues image
 
 the FSAT file contains to implementations of the same thing. One being in exsponential form and the other in trigonometric form 
